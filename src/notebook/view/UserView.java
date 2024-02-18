@@ -1,11 +1,8 @@
 package notebook.view;
 
-
-
 import java.util.Scanner;
 import notebook.controller.UserController;
 import notebook.model.User;
-import notebook.util.Commands;
 
 public class UserView {
     private final UserController userController;
@@ -15,18 +12,25 @@ public class UserView {
     }
 
     public void run(){
-        Commands com;
+        int command;
 
         while (true) {
-            String command = prompt("\nВведите команду: ");
-            com = Commands.valueOf(command);
-            if (com == Commands.EXIT) return;
-            switch (com) {
-                case CREATE:
+            System.out.println("Доступные команды:\n" 
+            + "1. Создать контакт\n"
+            + "2. Вывести контакт\n"
+            + "3. Редактирование контакта\n"
+            + "4. Вывести все контакты\n"
+            + "5. Удалить контакт\n"
+            + "0. Закрыть справочник\n");
+            command = Integer.parseInt(prompt("Введите номер команды: "));
+
+            if (command == 0) return;
+            switch (command) {
+                case 1:
                     User u = createUser();
                     userController.saveUser(u);
                     break;
-                case READ:
+                case 2:
                     String id = prompt("Идентификатор пользователя: ");
                     try {
                         User user = userController.readUser(Long.parseLong(id));
@@ -36,13 +40,13 @@ public class UserView {
                         throw new RuntimeException(e);
                     }
                     break;
-                case UPDATE:
+                case 3:
                     String userId = prompt("Enter user id: ");
                     userController.updateUser(userId, createUser());
-                case LIST:
+                case 4:
                     System.out.println(userController.readAll());
                     break;
-                case DELETE:
+                case 5:
                     String userID = prompt("Enter user id: ");
                     userController.delete(userID);
                     break;
