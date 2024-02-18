@@ -5,9 +5,11 @@ import notebook.model.repository.GBRepository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class UserController {
     private final GBRepository repository;
+    private Optional<User> update;
 
     public UserController(GBRepository repository) {
         this.repository = repository;
@@ -30,6 +32,10 @@ public class UserController {
 
     public void updateUser(String userId, User update) {
         update.setId(Long.parseLong(userId));
-        repository.update(Long.parseLong(userId), update);
+        this.update = repository.update(Long.parseLong(userId), update);
+    }
+
+    public List<User> readAll() {
+        return repository.findAll();
     }
 }

@@ -1,10 +1,11 @@
 package notebook.view;
 
+
+
+import java.util.Scanner;
 import notebook.controller.UserController;
 import notebook.model.User;
 import notebook.util.Commands;
-
-import java.util.Scanner;
 
 public class UserView {
     private final UserController userController;
@@ -17,7 +18,7 @@ public class UserView {
         Commands com;
 
         while (true) {
-            String command = prompt("Введите команду: ");
+            String command = prompt("\nВведите команду: ");
             com = Commands.valueOf(command);
             if (com == Commands.EXIT) return;
             switch (com) {
@@ -38,6 +39,9 @@ public class UserView {
                 case UPDATE:
                     String userId = prompt("Enter user id: ");
                     userController.updateUser(userId, createUser());
+                case LIST:
+                    System.out.println(userController.readAll());
+                    break;
             }
         }
     }
