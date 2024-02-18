@@ -42,6 +42,10 @@ public class UserView {
                 case LIST:
                     System.out.println(userController.readAll());
                     break;
+                case DELETE:
+                    String userID = prompt("Enter user id: ");
+                    userController.delete(userID);
+                    break;
             }
         }
     }
